@@ -8,26 +8,99 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="min-h-screen flex items-center justify-center p-4 bg-[#fdfaf6] text-[#44281d]">
+<body class="bg-[#fdfaf6] text-[#44281d] min-h-screen flex items-center justify-center p-4">
   <div class="container mx-auto max-w-5xl text-center">
 
-    <h1 class="text-6xl md:text-7xl font-bold mb-4">Surpresa Bíblica</h1>
-    <p class="text-2xl mb-8">Um jogo de conhecimento e reviravoltas!</p>
+    <!-- Tela de Regras -->
+    <div id="rules-screen">
+      <img src="surpresa-biblia.png" alt="Logotipo Surpresa Bíblica" class="mx-auto mb-4 w-3/4 md:w-1/2"
+           onerror="this.style.display='none'; document.getElementById('title-text').style.display='block'">
+      <h1 id="title-text" class="hidden text-6xl md:text-7xl font-bold mb-4">Surpresa Bíblica</h1>
+      <p class="text-2xl mb-8">Um jogo de conhecimento e reviravoltas!</p>
 
-    <div id="game-container" class="card p-6 rounded-lg">
-      <p class="mb-4">Clique no botão para começar o jogo.</p>
-      <button id="start-btn" class="btn">Iniciar Jogo</button>
-
-      <div id="question-section" class="mt-8 hidden">
-        <h2 id="question-text" class="text-2xl font-bold mb-4"></h2>
-        <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4"></div>
-        <button id="next-btn" class="btn hidden">Próxima Pergunta</button>
+      <div class="card p-6 mb-8 text-left">
+        <h3 class="text-2xl font-bold mb-3 text-center">Regras do Jogo</h3>
+        <ul class="list-disc list-inside space-y-3">
+          <li>O jogo tem <strong>10 rodadas</strong> de perguntas bíblicas.</li>
+          <li>Cada equipe responde a uma pergunta na sua vez.</li>
+          <li>Uma vez por jogo, uma equipe pode usar a <strong>Surpresa</strong>.</li>
+          <li>Se não usar até a última rodada, ela ativa automaticamente.</li>
+          <li>Se houver empate, há <strong>morte súbita</strong>.</li>
+        </ul>
       </div>
 
-      <div id="result-section" class="mt-8 hidden">
-        <h2 class="text-3xl font-bold mb-4">Jogo Finalizado!</h2>
-        <p id="score-text" class="text-2xl mb-4"></p>
-        <button id="restart-btn" class="btn">Jogar Novamente</button>
+      <button id="go-to-teams-btn" class="btn w-full max-w-md">Entendido, vamos jogar!</button>
+    </div>
+
+    <!-- Tela de Equipes -->
+    <div id="teams-screen" class="hidden">
+      <h1 class="text-6xl md:text-7xl font-bold mb-8">Montar Equipes</h1>
+      <div class="card p-6 max-w-md mx-auto">
+        <h2 class="text-2xl font-bold mb-4">Adicionar Equipes (2 a 5)</h2>
+        <div class="flex gap-2 mb-4">
+          <input type="text" id="team-name-input" placeholder="Nome da Equipe" class="input">
+          <button id="add-team-btn" class="btn">Adicionar</button>
+        </div>
+        <div id="teams-list" class="text-left"></div>
+        <button id="continue-to-difficulty-btn" class="btn w-full mt-6" disabled>Continuar</button>
+      </div>
+      <button id="back-to-rules-btn" class="btn text-btn mt-4">Ver Regras</button>
+    </div>
+
+    <!-- Tela de Dificuldade -->
+    <div id="difficulty-screen" class="hidden">
+      <h1 class="text-6xl md:text-7xl font-bold mb-8">Escolha a Dificuldade</h1>
+      <div class="flex flex-col md:flex-row gap-6 justify-center">
+        <button id="easy-btn" class="btn bg-[#4caf50] hover:bg-[#388e3c]">Fácil</button>
+        <button id="hard-btn" class="btn bg-[#c62828] hover:bg-[#b71c1c]">Difícil</button>
+      </div>
+      <button id="back-to-teams-btn" class="btn text-btn mt-8">Voltar</button>
+    </div>
+
+    <!-- Tela do Jogo -->
+    <div id="game-screen" class="hidden">
+      <div id="scoreboard" class="flex flex-wrap justify-center gap-4 mb-6"></div>
+
+      <div class="card p-8">
+        <div class="flex justify-between items-center mb-4">
+          <div id="turn-indicator" class="text-2xl font-bold"></div>
+          <div id="round-counter" class="text-xl font-bold"></div>
+        </div>
+
+        <div class="flex justify-center items-center mb-4">
+          <span class="text-lg font-bold mr-3">Tempo:</span>
+          <div id="timer" class="text-5xl font-bold">90</div>
+        </div>
+
+        <div id="question-container" class="mb-6">
+          <h2 id="question-text" class="text-3xl md:text-4xl font-bold"></h2>
+        </div>
+
+        <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"></div>
+
+        <div class="flex gap-4 justify-center">
+          <button id="surprise-card-btn" class="btn">Surpresa</button>
+        </div>
+
+        <div id="feedback-message" class="mt-6 text-2xl font-bold h-8"></div>
+      </div>
+    </div>
+
+    <!-- Tela de Resultado -->
+    <div id="end-screen" class="hidden">
+      <h1 class="text-6xl font-bold mb-6">FIM DE JOGO!</h1>
+      <div id="winner-announcement" class="text-2xl mb-4"></div>
+      <div id="final-scores" class="text-xl mb-6"></div>
+      <button id="restart-btn" class="btn">Jogar Novamente</button>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal hidden">
+      <div class="card p-8 max-w-lg w-full">
+        <h3 id="modal-title" class="text-2xl font-bold mb-4"></h3>
+        <div id="modal-description" class="mb-6 text-lg text-left"></div>
+        <div id="modal-options" class="flex flex-col gap-3"></div>
+        <button id="modal-close" class="btn bg-stone-600 hover:bg-stone-700 text-white mt-6">Fechar</button>
       </div>
     </div>
 

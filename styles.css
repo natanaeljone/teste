@@ -3,10 +3,10 @@ body {
 }
 
 .card {
-  background-color: rgba(245, 236, 224, 0.85);
+  background-color: rgba(245, 236, 224, 0.9);
   border: 2px solid #c8b7a6;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 0.75rem;
 }
 
 .btn {
@@ -26,4 +26,38 @@ body {
 .btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.input {
+  background-color: #fdfaf6;
+  color: #44281d;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: 2px solid #a1887f;
+  width: 100%;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #8d6e63;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.text-btn {
+  background: transparent;
+  border: none;
+  color: #6d4c41;
+}
+
+.text-btn:hover {
+  color: #44281d;
 }
