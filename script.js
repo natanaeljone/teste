@@ -1,9 +1,10 @@
-// 🎶 Sons
+// ======================
+// Sons
+// ======================
 const clickSound = new Audio('assets/click.mp3');
 const correctSound = new Audio('assets/correct.mp3');
 const errorSound = new Audio('assets/error.mp3');
 
-// 🔊 Função para tocar som
 function playSound(sound) {
   sound.currentTime = 0;
   sound.play();
@@ -12,51 +13,10 @@ function playSound(sound) {
 // ======================
 // Dados do jogo
 // ======================
-const questionsEasy = [
-  { question: "Quem foi o primeiro homem criado por Deus?", options: ["Abel", "Caim", "Adão", "Noé"], answer: 2 },
-  { question: "Qual o nome da primeira mulher?", options: ["Sara", "Rebeca", "Eva", "Raquel"], answer: 2 },
-  { question: "Quem construiu a arca para sobreviver ao dilúvio?", options: ["Abraão", "Moisés", "Noé", "Davi"], answer: 2 },
-  { question: "Quem foi engolido por um grande peixe?", options: ["Jonas", "Pedro", "Elias", "Paulo"], answer: 0 },
-  { question: "Quem recebeu os Dez Mandamentos?", options: ["Abraão", "Moisés", "Josué", "Salomão"], answer: 1 },
-  { question: "Quem venceu o gigante Golias?", options: ["Elias", "Davi", "Saul", "Sansão"], answer: 1 },
-  { question: "Quem interpretou os sonhos do faraó?", options: ["Moisés", "José", "Daniel", "Samuel"], answer: 1 },
-  { question: "Quantos livros tem o Novo Testamento?", options: ["39", "27", "66", "24"], answer: 1 },
-  { question: "Quem derrubou os muros de Jericó?", options: ["Josué", "Moisés", "Davi", "Abraão"], answer: 0 },
-  { question: "Quantos dias Deus levou para criar o mundo?", options: ["7", "6", "5", "8"], answer: 1 }
-];
+const questionsEasy = [...];  // (Aqui vai o banco de perguntas fáceis)
+const questionsHard = [...];  // (Aqui vai o banco de perguntas difíceis)
 
-const questionsHard = [
-  { question: "Quem escreveu o livro de Apocalipse?", options: ["Paulo", "João", "Pedro", "Tiago"], answer: 1 },
-  { question: "Quem traiu Jesus com um beijo?", options: ["Pedro", "Judas", "João", "Tomé"], answer: 1 },
-  { question: "Quem foi lançado na cova dos leões?", options: ["Elias", "Daniel", "José", "Davi"], answer: 1 },
-  { question: "Quantos dias e noites choveu no dilúvio?", options: ["20", "30", "40", "50"], answer: 2 },
-  { question: "Qual profeta desafiou os profetas de Baal?", options: ["Elias", "Eliseu", "Jeremias", "Isaías"], answer: 0 },
-  { question: "Quem foi arrebatado sem morrer?", options: ["Moisés", "Elias", "Enoque", "Josué"], answer: 2 },
-  { question: "Onde Jesus fez seu primeiro milagre?", options: ["Belém", "Jerusalém", "Canaã", "Galileia"], answer: 2 },
-  { question: "Qual era o nome da mãe de Samuel?", options: ["Ana", "Rute", "Maria", "Sara"], answer: 0 },
-  { question: "Quem foi o rei mais sábio da Bíblia?", options: ["Davi", "Salomão", "Saul", "Josias"], answer: 1 },
-  { question: "Quantos livros há no Antigo Testamento?", options: ["27", "39", "66", "40"], answer: 1 }
-];
-
-const surprises = [
-  { name: "Bênção Divina", description: "Sua equipe ganha 200 pontos.", effect: (team) => team.score += 200 },
-  { name: "Prova de Fé", description: "Sua equipe perde 100 pontos.", effect: (team) => team.score -= 100 },
-  { name: "Coleta Especial", description: "Escolha uma equipe para ganhar 150 pontos.", chooseTarget: true, effect: (target) => target.score += 150 },
-  { name: "Bom Samaritano", description: "Doe 150 pontos para outra equipe.", chooseTarget: true, effect: (target, team) => { team.score -= 150; target.score += 150; }},
-  { name: "Oferta Voluntária", description: "Dê 100 pontos para quem tiver menos pontos.", effect: (team, teams) => {
-    const minTeam = teams.reduce((min, t) => t.score < min.score ? t : min, teams[0]);
-    if (minTeam !== team) {
-      team.score -= 100;
-      minTeam.score += 100;
-    }
-  }},
-  { name: "Jubileu", description: "Troque sua pontuação com quem estiver em primeiro.", effect: (team, teams) => {
-    const maxTeam = teams.reduce((max, t) => t.score > max.score ? t : max, teams[0]);
-    const temp = team.score;
-    team.score = maxTeam.score;
-    maxTeam.score = temp;
-  }}
-];
+const surprises = [...];      // (Aqui vai o banco de surpresas)
 
 // ======================
 // Variáveis Globais
@@ -73,15 +33,79 @@ let timerInterval;
 let timeLeft = 90;
 
 // ======================
-// Utilitários
+// Navegação de Telas
 // ======================
+document.getElementById('go-to-teams-btn').onclick = () => {
+  playSound(clickSound);
+  showScreen('teams-screen');
+};
+
+document.getElementById('back-to-rules-btn').onclick = () => {
+  playSound(clickSound);
+  showScreen('rules-screen');
+};
+
+document.getElementById('back-to-teams-btn').onclick = () => {
+  playSound(clickSound);
+  showScreen('teams-screen');
+};
+
+document.getElementById('continue-to-difficulty-btn').onclick = () => {
+  playSound(clickSound);
+  showScreen('difficulty-screen');
+};
+
+// ======================
+// Adicionar Equipes
+// ======================
+document.getElementById('add-team-btn').onclick = () => {
+  playSound(clickSound);
+  const name = document.getElementById('team-name-input').value.trim();
+  if (name && teams.length < 5) {
+    teams.push({ name, score: 0 });
+    updateTeamsList();
+    document.getElementById('team-name-input').value = '';
+  }
+};
+
+function updateTeamsList() {
+  const list = document.getElementById('teams-list');
+  list.innerHTML = teams.map(t => `<p>✔️ ${t.name}</p>`).join('');
+  document.getElementById('continue-to-difficulty-btn').disabled = teams.length < 2;
+}
+
+// ======================
+// Escolha da Dificuldade
+// ======================
+document.getElementById('easy-btn').onclick = () => startGame('easy');
+document.getElementById('hard-btn').onclick = () => startGame('hard');
+
+// ======================
+// Funções Principais
+// ======================
+function showScreen(id) {
+  ['rules-screen', 'teams-screen', 'difficulty-screen', 'game-screen', 'end-screen'].forEach(screen => {
+    document.getElementById(screen).classList.add('hidden');
+  });
+  document.getElementById(id).classList.remove('hidden');
+}
+
+function startGame(selectedDifficulty) {
+  playSound(clickSound);
+  difficulty = selectedDifficulty;
+  currentRound = 1;
+  usedSurprises = {};
+  questionQueue = generateQuestionQueue();
+  teamTurnIndex = 0;
+  questionIndex = 0;
+  showScreen('game-screen');
+  startTurn();
+}
+
 function shuffle(array) {
   return array.sort(() => Math.random() - 0.5);
 }
 
-// ======================
-// Gerar Fila de Perguntas
-// ======================
 function generateQuestionQueue() {
   const questionSet = difficulty === 'easy' ? [...questionsEasy] : [...questionsHard];
   const queue = [];
@@ -98,32 +122,7 @@ function generateQuestionQueue() {
 }
 
 // ======================
-// Navegação de Telas
-// ======================
-function showScreen(id) {
-  ['rules-screen', 'teams-screen', 'difficulty-screen', 'game-screen', 'end-screen'].forEach(screen => {
-    document.getElementById(screen).classList.add('hidden');
-  });
-  document.getElementById(id).classList.remove('hidden');
-}
-
-// ======================
-// Começar Jogo
-// ======================
-function startGame(selectedDifficulty) {
-  playSound(clickSound);
-  difficulty = selectedDifficulty;
-  currentRound = 1;
-  usedSurprises = {};
-  questionQueue = generateQuestionQueue();
-  teamTurnIndex = 0;
-  questionIndex = 0;
-  showScreen('game-screen');
-  startTurn();
-}
-
-// ======================
-// Turno de Perguntas
+// Controle de Turno
 // ======================
 function startTurn() {
   if (currentRound > totalRounds) {
