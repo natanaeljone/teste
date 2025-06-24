@@ -1,12 +1,26 @@
+/* ======================
+   Estilo Principal
+====================== */
 body {
   font-family: 'EB Garamond', serif;
+}
+
+.logo {
+  width: 300px;
+  max-width: 80%;
+  margin: 0 auto;
 }
 
 .card {
   background-color: rgba(245, 236, 224, 0.95);
   border: 2px solid #c8b7a6;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 0.75rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.02);
 }
 
 .btn {
@@ -14,25 +28,26 @@ body {
   color: white;
   font-weight: bold;
   padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
 .btn:hover {
   background-color: #6d4c41;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
 .btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  transform: none;
 }
 
 .input {
-  background-color: #fdfaf6;
+  background-color: #fefaf6;
   color: #44281d;
   padding: 0.75rem;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   border: 2px solid #a1887f;
   width: 100%;
 }
@@ -60,4 +75,79 @@ body {
 
 .text-btn:hover {
   color: #44281d;
+}
+
+/* ======================
+   Animações
+====================== */
+@keyframes fade {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade {
+  animation: fade 0.8s ease-in-out;
+}
+
+/* ======================
+   Placar (Scoreboard)
+====================== */
+#scoreboard .card {
+  background: linear-gradient(135deg, #f7f1e3, #e8d9c7);
+  border: 2px solid #c8b7a6;
+}
+
+#scoreboard .card h3 {
+  font-size: 1.5rem;
+}
+
+#scoreboard .card p {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+/* ======================
+   Timer
+====================== */
+#timer {
+  background-color: #fefefe;
+  border-radius: 1rem;
+  padding: 0.25em 1em;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+/* ======================
+   Feedback (Correto/Errado)
+====================== */
+#feedback-message {
+  min-height: 2rem;
+}
+
+/* ======================
+   Responsividade
+====================== */
+@media (max-width: 768px) {
+  .card {
+    padding: 1rem;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2, h3 {
+    font-size: 1.75rem;
+  }
+
+  #question-text {
+    font-size: 1.75rem;
+  }
+
+  #timer {
+    font-size: 2.5rem;
+  }
 }

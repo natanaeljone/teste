@@ -7,34 +7,34 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-[#fefaf6] text-[#44281d] flex items-center justify-center min-h-screen p-4">
+<body class="bg-[#fefaf6] text-[#44281d] min-h-screen flex items-center justify-center p-4">
   <div class="container max-w-5xl mx-auto text-center">
 
     <!-- Tela de Regras -->
     <div id="rules-screen">
-      <img src="surpresa-biblia.png" alt="Surpresa Bíblica" class="mx-auto mb-4 w-3/4 md:w-1/2 rounded-xl shadow-lg"
-      onerror="this.style.display='none'; document.getElementById('title-text').style.display='block'">
-      <h1 id="title-text" class="hidden text-6xl md:text-7xl font-bold mb-4">Surpresa Bíblica</h1>
+      <img src="assets/surpresa-biblia.png" alt="Surpresa Bíblica" class="logo mb-4"
+           onerror="this.style.display='none'; document.getElementById('title-text').style.display='block'">
+      <h1 id="title-text" class="hidden text-6xl md:text-7xl font-bold mb-4 animate-fade">Surpresa Bíblica</h1>
       <p class="text-2xl mb-8">Um jogo de conhecimento e reviravoltas!</p>
 
       <div class="card p-6 mb-8">
-        <h3 class="text-3xl font-bold mb-3">Regras do Jogo</h3>
+        <h3 class="text-3xl font-bold mb-3">📜 Regras do Jogo</h3>
         <ul class="list-disc list-inside space-y-3 text-left">
-          <li>O jogo possui <strong>10 rodadas</strong>.</li>
-          <li>Cada equipe responde <strong>3 perguntas por rodada</strong>, alternadamente.</li>
-          <li>As perguntas são <strong>aleatórias e não se repetem</strong>.</li>
-          <li>Uma vez por jogo, uma equipe pode usar a <strong>Surpresa</strong>.</li>
-          <li>Se não usar até a última rodada, ela será usada automaticamente.</li>
-          <li>Se houver empate, há uma <strong>morte súbita</strong> até desempatar.</li>
+          <li>🔢 O jogo possui <strong>10 rodadas</strong>.</li>
+          <li>🧠 Cada equipe responde <strong>3 perguntas por rodada</strong>, alternando.</li>
+          <li>🎯 As perguntas são <strong>aleatórias e não se repetem</strong> na mesma rodada.</li>
+          <li>🎁 Uma vez por jogo, cada equipe pode usar a <strong>Surpresa</strong>.</li>
+          <li>⏰ Se não usar até a última rodada, ela ativa automaticamente.</li>
+          <li>⚔️ Empate? <strong>Morte súbita</strong> até desempatar!</li>
         </ul>
       </div>
 
-      <button id="go-to-teams-btn" class="btn w-full max-w-md">Entendido, vamos jogar!</button>
+      <button id="go-to-teams-btn" class="btn w-full max-w-md">🎮 Entendido, vamos jogar!</button>
     </div>
 
-    <!-- Tela de Montagem das Equipes -->
+    <!-- Tela de Montagem de Equipes -->
     <div id="teams-screen" class="hidden">
-      <h1 class="text-6xl md:text-7xl font-bold mb-8">Montar Equipes</h1>
+      <h1 class="text-6xl md:text-7xl font-bold mb-8 animate-fade">Montar Equipes</h1>
       <div class="card p-6 max-w-md mx-auto">
         <h2 class="text-2xl font-bold mb-4">Adicionar Equipes (2 a 5)</h2>
         <div class="flex gap-2 mb-4">
@@ -49,7 +49,7 @@
 
     <!-- Tela de Dificuldade -->
     <div id="difficulty-screen" class="hidden">
-      <h1 class="text-6xl md:text-7xl font-bold mb-8">Escolha a Dificuldade</h1>
+      <h1 class="text-6xl md:text-7xl font-bold mb-8 animate-fade">Escolha a Dificuldade</h1>
       <div class="flex flex-col md:flex-row gap-6 justify-center">
         <button id="easy-btn" class="btn bg-[#4caf50] hover:bg-[#388e3c]">Fácil</button>
         <button id="hard-btn" class="btn bg-[#c62828] hover:bg-[#b71c1c]">Difícil</button>
@@ -68,7 +68,7 @@
         </div>
 
         <div class="flex justify-center items-center mb-4">
-          <span class="text-lg font-bold mr-3">Tempo:</span>
+          <span class="text-lg font-bold mr-3">⏳ Tempo:</span>
           <div id="timer" class="text-5xl font-bold">90</div>
         </div>
 
@@ -79,7 +79,7 @@
         <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"></div>
 
         <div class="flex gap-4 justify-center">
-          <button id="surprise-card-btn" class="btn">🎁 Surpresa</button>
+          <button id="surprise-card-btn" class="btn">🎁 Usar Surpresa</button>
         </div>
 
         <div id="feedback-message" class="mt-6 text-2xl font-bold h-8"></div>
@@ -88,7 +88,7 @@
 
     <!-- Tela de Resultado -->
     <div id="end-screen" class="hidden">
-      <h1 class="text-6xl font-bold mb-6">🏆 Fim de Jogo!</h1>
+      <h1 class="text-6xl font-bold mb-6 animate-fade">🏆 Fim de Jogo!</h1>
       <div id="winner-announcement" class="text-2xl mb-4"></div>
       <div id="final-scores" class="text-xl mb-6"></div>
       <button id="restart-btn" class="btn">🔄 Jogar Novamente</button>
@@ -105,6 +105,10 @@
     </div>
 
   </div>
+
+  <audio id="click-sound" src="assets/click.mp3"></audio>
+  <audio id="correct-sound" src="assets/correct.mp3"></audio>
+  <audio id="error-sound" src="assets/error.mp3"></audio>
 
   <script src="script.js"></script>
 </body>

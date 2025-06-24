@@ -1,6 +1,17 @@
-// ===========================
-// Banco de Perguntas
-// ===========================
+// 🎶 Sons
+const clickSound = new Audio('assets/click.mp3');
+const correctSound = new Audio('assets/correct.mp3');
+const errorSound = new Audio('assets/error.mp3');
+
+// 🔊 Função para tocar som
+function playSound(sound) {
+  sound.currentTime = 0;
+  sound.play();
+}
+
+// ======================
+// Dados do jogo
+// ======================
 const questionsEasy = [
   { question: "Quem foi o primeiro homem criado por Deus?", options: ["Abel", "Caim", "Adão", "Noé"], answer: 2 },
   { question: "Qual o nome da primeira mulher?", options: ["Sara", "Rebeca", "Eva", "Raquel"], answer: 2 },
@@ -27,14 +38,11 @@ const questionsHard = [
   { question: "Quantos livros há no Antigo Testamento?", options: ["27", "39", "66", "40"], answer: 1 }
 ];
 
-// ===========================
-// Surpresas
-// ===========================
 const surprises = [
   { name: "Bênção Divina", description: "Sua equipe ganha 200 pontos.", effect: (team) => team.score += 200 },
   { name: "Prova de Fé", description: "Sua equipe perde 100 pontos.", effect: (team) => team.score -= 100 },
   { name: "Coleta Especial", description: "Escolha uma equipe para ganhar 150 pontos.", chooseTarget: true, effect: (target) => target.score += 150 },
-  { name: "O Bom Samaritano", description: "Doe 150 pontos seus para outra equipe.", chooseTarget: true, effect: (target, team) => { team.score -= 150; target.score += 150; }},
+  { name: "Bom Samaritano", description: "Doe 150 pontos para outra equipe.", chooseTarget: true, effect: (target, team) => { team.score -= 150; target.score += 150; }},
   { name: "Oferta Voluntária", description: "Dê 100 pontos para quem tiver menos pontos.", effect: (team, teams) => {
     const minTeam = teams.reduce((min, t) => t.score < min.score ? t : min, teams[0]);
     if (minTeam !== team) {
@@ -50,9 +58,9 @@ const surprises = [
   }}
 ];
 
-// ===========================
+// ======================
 // Variáveis Globais
-// ===========================
+// ======================
 let teams = [];
 let currentRound = 1;
 const totalRounds = 10;
@@ -64,16 +72,16 @@ let questionIndex = 0;
 let timerInterval;
 let timeLeft = 90;
 
-// ===========================
+// ======================
 // Utilitários
-// ===========================
+// ======================
 function shuffle(array) {
   return array.sort(() => Math.random() - 0.5);
 }
 
-// ===========================
+// ======================
 // Gerar Fila de Perguntas
-// ===========================
+// ======================
 function generateQuestionQueue() {
   const questionSet = difficulty === 'easy' ? [...questionsEasy] : [...questionsHard];
   const queue = [];
@@ -89,9 +97,9 @@ function generateQuestionQueue() {
   return queue;
 }
 
-// ===========================
+// ======================
 // Navegação de Telas
-// ===========================
+// ======================
 function showScreen(id) {
   ['rules-screen', 'teams-screen', 'difficulty-screen', 'game-screen', 'end-screen'].forEach(screen => {
     document.getElementById(screen).classList.add('hidden');
@@ -99,10 +107,11 @@ function showScreen(id) {
   document.getElementById(id).classList.remove('hidden');
 }
 
-// ===========================
+// ======================
 // Começar Jogo
-// ===========================
+// ======================
 function startGame(selectedDifficulty) {
+  playSound(clickSound);
   difficulty = selectedDifficulty;
   currentRound = 1;
   usedSurprises = {};
@@ -113,9 +122,9 @@ function startGame(selectedDifficulty) {
   startTurn();
 }
 
-// ===========================
+// ======================
 // Turno de Perguntas
-// ===========================
+// ======================
 function startTurn() {
   if (currentRound > totalRounds) {
     return endGame();
@@ -153,16 +162,17 @@ function checkAnswer(selected, question, btn, team) {
   if (correct) {
     team.score += 100;
     document.getElementById('feedback-message').textContent = '✔️ Correto!';
+    playSound(correctSound);
     btn.classList.add('bg-green-600');
   } else {
     document.getElementById('feedback-message').textContent = '❌ Errado!';
+    playSound(errorSound);
     btn.classList.add('bg-red-600');
     const correctBtn = Array.from(document.getElementById('options-container').children)[question.answer];
     correctBtn.classList.add('bg-green-600');
   }
 
   disableOptions();
-
   setTimeout(() => nextTurn(), 2000);
 }
 
@@ -189,10 +199,11 @@ function disableOptions() {
   Array.from(document.getElementById('options-container').children).forEach(btn => btn.disabled = true);
 }
 
-// ===========================
+// ======================
 // Surpresa
-// ===========================
+// ======================
 document.getElementById('surprise-card-btn').onclick = () => {
+  playSound(clickSound);
   const round = questionQueue[currentRound - 1];
   const team = round[teamTurnIndex].team;
 
@@ -247,9 +258,9 @@ function closeModal() {
   document.getElementById('modal').classList.add('hidden');
 }
 
-// ===========================
+// ======================
 // Timer
-// ===========================
+// ======================
 function startTimer() {
   timeLeft = 90;
   document.getElementById('timer').textContent = timeLeft;
@@ -259,6 +270,7 @@ function startTimer() {
     if (timeLeft <= 0) {
       stopTimer();
       document.getElementById('feedback-message').textContent = '⏰ Tempo esgotado!';
+      playSound(errorSound);
       disableOptions();
       setTimeout(() => nextTurn(), 2000);
     }
@@ -269,22 +281,22 @@ function stopTimer() {
   clearInterval(timerInterval);
 }
 
-// ===========================
+// ======================
 // Scoreboard
-// ===========================
+// ======================
 function updateScoreboard() {
   const scoreboard = document.getElementById('scoreboard');
   scoreboard.innerHTML = teams.map(team => `
-    <div class="card p-4">
+    <div class="card p-4 animate-fade">
       <h3 class="font-bold">${team.name}</h3>
       <p>${team.score} pts</p>
     </div>
   `).join('');
 }
 
-// ===========================
+// ======================
 // Fim do Jogo
-// ===========================
+// ======================
 function endGame() {
   showScreen('end-screen');
   const maxScore = Math.max(...teams.map(t => t.score));
@@ -296,6 +308,7 @@ function endGame() {
 }
 
 document.getElementById('restart-btn').onclick = () => {
+  playSound(clickSound);
   teams.forEach(t => t.score = 0);
   currentRound = 1;
   usedSurprises = {};
