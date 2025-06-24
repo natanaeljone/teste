@@ -1,0 +1,29 @@
+body {
+  font-family: 'EB Garamond', serif;
+}
+
+.card {
+  background-color: rgba(245, 236, 224, 0.85);
+  border: 2px solid #c8b7a6;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.btn {
+  background-color: #8d6e63;
+  color: white;
+  font-weight: bold;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn:hover {
+  background-color: #6d4c41;
+  transform: translateY(-2px);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
