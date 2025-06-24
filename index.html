@@ -6,6 +6,7 @@
   <title>Surpresa Bíblica</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 <body class="bg-[#fefaf6] text-[#44281d] min-h-screen flex items-center justify-center p-4">
   <div class="container max-w-5xl mx-auto text-center">
@@ -23,9 +24,8 @@
           <li>🔢 O jogo possui <strong>10 rodadas</strong>.</li>
           <li>🧠 Cada equipe responde <strong>3 perguntas por rodada</strong>, alternando.</li>
           <li>🎯 As perguntas são <strong>aleatórias e não se repetem</strong> na mesma rodada.</li>
-          <li>🎁 Uma vez por jogo, cada equipe pode usar a <strong>Surpresa</strong>.</li>
-          <li>⏰ Se não usar até a última rodada, ela ativa automaticamente.</li>
-          <li>⚔️ Empate? <strong>Morte súbita</strong> até desempatar!</li>
+          <li>🎁 Cada equipe pode usar uma <strong>Surpresa</strong> uma vez por jogo.</li>
+          <li>⚔️ Em caso de empate, há <strong>morte súbita</strong> até desempatar!</li>
         </ul>
       </div>
 
@@ -111,6 +111,5 @@
   <audio id="correct-sound" src="assets/correct.mp3"></audio>
   <audio id="error-sound" src="assets/error.mp3"></audio>
 
-  <script src="script.js"></script>
 </body>
 </html>
