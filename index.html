@@ -7,32 +7,32 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="styles.css">
 </head>
-
-<body class="bg-[#fdfaf6] text-[#44281d] min-h-screen flex items-center justify-center p-4">
-  <div class="container mx-auto max-w-5xl text-center">
+<body class="bg-[#fefaf6] text-[#44281d] flex items-center justify-center min-h-screen p-4">
+  <div class="container max-w-5xl mx-auto text-center">
 
     <!-- Tela de Regras -->
     <div id="rules-screen">
-      <img src="surpresa-biblia.png" alt="Logotipo Surpresa Bíblica" class="mx-auto mb-4 w-3/4 md:w-1/2"
-           onerror="this.style.display='none'; document.getElementById('title-text').style.display='block'">
+      <img src="surpresa-biblia.png" alt="Surpresa Bíblica" class="mx-auto mb-4 w-3/4 md:w-1/2 rounded-xl shadow-lg"
+      onerror="this.style.display='none'; document.getElementById('title-text').style.display='block'">
       <h1 id="title-text" class="hidden text-6xl md:text-7xl font-bold mb-4">Surpresa Bíblica</h1>
       <p class="text-2xl mb-8">Um jogo de conhecimento e reviravoltas!</p>
 
-      <div class="card p-6 mb-8 text-left">
-        <h3 class="text-2xl font-bold mb-3 text-center">Regras do Jogo</h3>
-        <ul class="list-disc list-inside space-y-3">
-          <li>O jogo tem <strong>10 rodadas</strong> de perguntas bíblicas.</li>
-          <li>Cada equipe responde a uma pergunta na sua vez.</li>
+      <div class="card p-6 mb-8">
+        <h3 class="text-3xl font-bold mb-3">Regras do Jogo</h3>
+        <ul class="list-disc list-inside space-y-3 text-left">
+          <li>O jogo possui <strong>10 rodadas</strong>.</li>
+          <li>Cada equipe responde <strong>3 perguntas por rodada</strong>, alternadamente.</li>
+          <li>As perguntas são <strong>aleatórias e não se repetem</strong>.</li>
           <li>Uma vez por jogo, uma equipe pode usar a <strong>Surpresa</strong>.</li>
-          <li>Se não usar até a última rodada, ela ativa automaticamente.</li>
-          <li>Se houver empate, há <strong>morte súbita</strong>.</li>
+          <li>Se não usar até a última rodada, ela será usada automaticamente.</li>
+          <li>Se houver empate, há uma <strong>morte súbita</strong> até desempatar.</li>
         </ul>
       </div>
 
       <button id="go-to-teams-btn" class="btn w-full max-w-md">Entendido, vamos jogar!</button>
     </div>
 
-    <!-- Tela de Equipes -->
+    <!-- Tela de Montagem das Equipes -->
     <div id="teams-screen" class="hidden">
       <h1 class="text-6xl md:text-7xl font-bold mb-8">Montar Equipes</h1>
       <div class="card p-6 max-w-md mx-auto">
@@ -44,7 +44,7 @@
         <div id="teams-list" class="text-left"></div>
         <button id="continue-to-difficulty-btn" class="btn w-full mt-6" disabled>Continuar</button>
       </div>
-      <button id="back-to-rules-btn" class="btn text-btn mt-4">Ver Regras</button>
+      <button id="back-to-rules-btn" class="btn text-btn mt-4">← Voltar para Regras</button>
     </div>
 
     <!-- Tela de Dificuldade -->
@@ -54,10 +54,10 @@
         <button id="easy-btn" class="btn bg-[#4caf50] hover:bg-[#388e3c]">Fácil</button>
         <button id="hard-btn" class="btn bg-[#c62828] hover:bg-[#b71c1c]">Difícil</button>
       </div>
-      <button id="back-to-teams-btn" class="btn text-btn mt-8">Voltar</button>
+      <button id="back-to-teams-btn" class="btn text-btn mt-8">← Voltar para Equipes</button>
     </div>
 
-    <!-- Tela do Jogo -->
+    <!-- Tela de Jogo -->
     <div id="game-screen" class="hidden">
       <div id="scoreboard" class="flex flex-wrap justify-center gap-4 mb-6"></div>
 
@@ -79,7 +79,7 @@
         <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"></div>
 
         <div class="flex gap-4 justify-center">
-          <button id="surprise-card-btn" class="btn">Surpresa</button>
+          <button id="surprise-card-btn" class="btn">🎁 Surpresa</button>
         </div>
 
         <div id="feedback-message" class="mt-6 text-2xl font-bold h-8"></div>
@@ -88,10 +88,10 @@
 
     <!-- Tela de Resultado -->
     <div id="end-screen" class="hidden">
-      <h1 class="text-6xl font-bold mb-6">FIM DE JOGO!</h1>
+      <h1 class="text-6xl font-bold mb-6">🏆 Fim de Jogo!</h1>
       <div id="winner-announcement" class="text-2xl mb-4"></div>
       <div id="final-scores" class="text-xl mb-6"></div>
-      <button id="restart-btn" class="btn">Jogar Novamente</button>
+      <button id="restart-btn" class="btn">🔄 Jogar Novamente</button>
     </div>
 
     <!-- Modal -->

@@ -3,7 +3,7 @@ body {
 }
 
 .card {
-  background-color: rgba(245, 236, 224, 0.9);
+  background-color: rgba(245, 236, 224, 0.95);
   border: 2px solid #c8b7a6;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   border-radius: 0.75rem;
